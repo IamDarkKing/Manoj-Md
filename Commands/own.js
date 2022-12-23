@@ -14,14 +14,14 @@ Manoj.dp.start = async(core) => {
 	}
 
 	var up = await core.send(string().own.dp.up)
-	fs.writeFileSync('./manoj-prop.jpg', dl.buffer)
+	fs.writeFileSync('./manoj-prop.png', dl.buffer)
 	await core.profileUpdate({
 		dothis: 'up-dp',
-		url: './manoj-prop.jpg',
+		url: './manoj-prop.png',
 		user: core.me
 	})
 	await core.send(string().own.dp.upd)
-	removefile('./manoj-prop.jpg')
+	removefile('./manoj-prop.png')
 	return await core.delete(up)
 }
 
@@ -34,6 +34,18 @@ Manoj.setabout.start = async(core) => {
 	await core.reply(string().own.about.done)
 }
 
+Manoj.logout.start = async(core) => {
+	if(owners.have(core.sender)) {
+		if(core.isgroup && core.Reply.jid.cut('@')[0].cut(':')[0] != core.me.cut('@')[0]) {
+			return
+		}
+
+		await core.send('*My Owner Request Me To Logout :(*\n\n*So {} Good Bye..*'.bind(core.user.name))
+		await core.manoj.logout()
+	}
+
+	return
+}
 
 Manoj.comm.start = async(core) => {
 	if(!core.input.have('/') || !core.input.have('@g.us')) {

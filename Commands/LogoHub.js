@@ -7,7 +7,7 @@ Youtube: https://youtube.com/c/TechToFuture
 
 Coded By Ravindu Manoj
 */
-const { EphotoBest, emojimix, ph, emojiToPng, attplist, toAttp, fancy } = Ravindu
+const { EphotoBest, emojimix, ph, emojiToPng, attplist, toAttp, fancy, RGBTEXT } = Ravindu
 
 Manoj.logoA.start = async(core) => {
 	if(!core.text) {
@@ -36,7 +36,7 @@ Manoj.logoA.start = async(core) => {
 	var res = await ephoto.CreateImageFromData()
 	var filepath = '/root/temp/' + randomName() + '.jpg'
 	await core.downloadAndStream(res, filepath, async() => {
-		await core.mediasend('image', filepath, dataDb.caption.setup(core))
+		await core.mediasend('image', filepath, dataDb.caption.setup(core), { logo:true, crop:true })
 		removefile(filepath)
 	})
 
@@ -73,7 +73,7 @@ Manoj.logoB.start = async(core) => {
 	var res = await ephoto.CreateImageFromData()
 	var filepath = '/root/temp/' + randomName() + '.jpg'
 	await core.downloadAndStream(res, filepath, async() => {
-		await core.mediasend('image', filepath, dataDb.caption.setup(core))
+		await core.mediasend('image', filepath, dataDb.caption.setup(core), { logo:true, crop:true })
 		removefile(filepath)
 	})
 }
@@ -98,7 +98,7 @@ Manoj.logoC.start = async(core) => {
 	var res = await ephoto.CreateImageFromdata()
 	var filepath = '/root/temp/' + randomName() + '.jpg'
 	await core.downloadAndStream(res, filepath, async() => {
-		await core.mediasend('image', filepath, dataDb.caption.setup(core))
+		await core.mediasend('image', filepath, dataDb.caption.setup(core), { logo:true, crop:true })
 		removefile(filepath)
 	})
 }
@@ -120,11 +120,6 @@ Manoj.attpA.start = async(core) => {
 		}
 
 		var res = await toAttp(core.text)
-		if(core.text.have('ttp')) {
-			var data = await core.bufferType(res.url)
-			return await core.mediasend('sticker', data.buffer, { type:res.sticktype })
-		}
-
 		var filepath = '/root/temp/' + randomName() + res.sticktype === 'image' ? '.jpg' : '.gif'
 		await core.downloadAndStream(res.url, filepath, async() => {
 			await core.mediasend('sticker', filepath, { type:res.sticktype })
@@ -230,6 +225,24 @@ Manoj.attpD.start = async(core) => {
 
 }
 
+Manoj.rgb.start = async(core) => {
+	if(!core.input) {
+		return await core.send(string().attp.attpB.need)
+	}
+
+	if(core.input.have('/-/')) {
+		var a = core.input.cut('/-/')
+		var data = RGBTEXT.create(a[1], a[0])
+		return await core.mediasend('sticker', data, { type:'video' })
+	}
+
+	var list = {}
+	list.text = '*RGB STICKER MAKER*\n\n*INPUT :* ```' + core.input + '```'
+	list.button = 'SELECT FONT'
+	list.sec = RGBTEXT.fontlist(core.input)
+	return await core.sendlist(list)
+}
+
 Manoj.png.start = async(core) => {
 	if(!core.input || !emojitoArray(core.input)[0]) {
 		return await core.reply(string().logo.png.need)
@@ -241,7 +254,6 @@ Manoj.png.start = async(core) => {
 	}
 
 	var text = {}
-	text.title = ''
 	text.text = string().logo.png.msg.format(emojipng.name, emojipng.unicode, emojipng.description)
 	text.button = string().logo.png.sel
 	text.sec = emojipng.section
@@ -258,7 +270,6 @@ Manoj.fancy.start = async(core) => {
 	}
 
 	var list = {}
-	list.title = ''
 	list.text = string().logo.fancy.msg.bind(core.text)
 	list.button = 'Select'
 	list.sec = fancy.list(core.text)

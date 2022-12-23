@@ -8,17 +8,23 @@ Youtube: https://youtube.com/c/TechToFuture
 Coded By Ravindu Manoj
 */
 var Url_Regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
-const { calAge, calculater } = Ravindu
+const { calAge, calculater, translate, getSiteScreenshot } = Ravindu
 Manoj.del.start = async(core) => {
-	if(!core.Reply || !core.Reply_key.fromMe) {
+	if(!core.Reply) {
 		return
+	}
+
+	if(!core.Reply_key.fromMe) {
+		if(!await core.amAdmin()) {
+			return
+		}
 	}
 
 	if(!core.fromMe && !core.checkload(core.Reply_key)) {
 		return await core.reply('*Do Not Try To Play With Artificial Intelligence...!*')
 	}
 
-	await core.delete(core.Reply_key)
+	await core.delete({ key:core.Reply_key })
 }
 
 Manoj.react.start = async(core) => {
@@ -74,11 +80,11 @@ Manoj.link.start = async(core) => {
 
 Manoj.url.start = async(core) => {
 	var data = await core.download()
-	if(!data.type === 'image' && !data.type === 'video') {
+	if(data.type !== 'image' && data.type !== 'video') {
 		return core.reply(string().url.need)
 	}
 
-	var filepath = './temp/urlaimg.' + (data.type === 'image' ? 'jpg' : 'mp4')
+	var filepath = './temp/urlaimg.' + (data.type === 'image' ? 'png' : 'mp4')
 	fs.writeFileSync(filepath, data.buffer)
 	var up = await core.send(string().url.dop)
 	await core.reply(await TelegraPh(filepath))
@@ -110,6 +116,53 @@ Manoj.cal.start = async(core) => {
 	}
 
 	return await core.reply(out)
+}
+
+Manoj.readmore.start = async(core) => {
+	if(!core.text) {
+		return await core.reply(string().readmore.need)
+	}
+
+	const text = core.text.cut('/')
+	return await core.reply(text[0] + readmore + (text[1] || ''))
+}
+
+Manoj.trt.start = async(core) => {
+	if(!core.Reply || !core.Reply.text) {
+		return await core.reply(string().trt.need_r)
+	}
+
+	if(!core.input || !core.input.cut('/')[1]) {
+		return await core.reply(string().trt.needlang)
+	}
+
+	var langs = core.input.cut('/')
+	const from = searchlanguage(langs[0]).data1
+	const to = searchlanguage(langs[1]).data1 || langs[1]
+	try {
+		var msg = await translate(core.Reply.text, { from, to })
+		if(!msg) {
+			throw new Error('false')
+		}
+
+		await core.reply(string().trt.done.bind(from, to, msg))
+	} catch{
+		await core.reply(string().trt.err)
+	}
+}
+
+Manoj.screenshot.start = async(core) => {
+	if(!core.input) {
+		return await core.reply(string().screenshot.need)
+	}
+
+	var buff = getSiteScreenshot(core.input)
+	var linkdata = await linkPreview(buff)
+	if(!linkdata.mime || linkdata.mime.cut('/')[0] !== 'image') {
+		return await core.reply(string().screenshot.error)
+	}
+
+	return await core.mediasend('image', buff, dataDb.caption.setup(core))
 }
 
 function urlTester(outurl) {

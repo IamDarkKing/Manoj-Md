@@ -42,6 +42,7 @@ Manoj.yts.start = async(core) => {
 
 		return await core.delete(st)
 	} catch(e) {
+		console.log(e)
 		return await core.send(string().youtube.yts.error)
 	}
 }
@@ -57,13 +58,15 @@ Manoj.song.start = Manoj.video.start = async(core) => {
 		var vid = type.key
 		if(type.type == 'text') {
 			var search = await youtube.Search(type.key)
+
 			vid = search[0].videoId
 		}
 
 		var data = await youtube.SearchById(vid, cmds)
 
+
 		var msg = {}
-		msg.img = data.thumbnail
+		msg.img = await core.image({ logo:true, buffer:data.thumbnail })
 		msg.text = string().youtube[cmds].data.bind(data.url, data.title, data.Channel, data.view, data.category, data.likes, data.desc)
 
 		var dbtn = await core.buttongen(await youtube.gen(data, cmds))

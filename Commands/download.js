@@ -95,7 +95,7 @@ Manoj.instastory.start = async(core) => {
 			}, {
 				quickReplyButton: {
 					displayText: 'STORIES',
-					id: 'instastory' + r
+					id: 'instastory ' + r
 				}
 			}])
 			return s.button = i.button, i.type ? await core.sendbuttonimg(s) : await core.sendButtonimg(s)
@@ -191,8 +191,11 @@ Manoj.tiktok.start = async(core) => {
 			await core.mediasend(core.input.cut('/-/')[0], core.input.cut('/-/')[1])
 		} else if(url == 'get') {
 			var data = await tiktokDownload(core.input)
+			var med = data.data.media
+			var aut = data.data.author
+			var text = '*TIKTOK CONTENT DOWNLOADER*\n\n*Title:* {}\n*Viwes:* {}\n*Likes:* {}\n*Comments:* {}\n*Share:* {}\n\n*Author Acc:* {}\n*NickName:* {}\n*Followers:* {}\n*Likes:* {}\n*Location:* {}\n*Signature:* {}\n'.bind(med.title, med.playCount, med.diggCount, med.commentCount, med.shareCount, aut.acc, aut.nickname, aut.followerCount, aut.heartCount, aut.location, aut.signature)
 			var s = {}
-			s.img = string().tiktok.img, s.text = '*TIKTOK CONTENT DOWNLOADER*\n\n*URL : ' + core.input + '*\n\n'
+			s.img = await core.image({ logo:true, buffer:med.thumbnail }), s.text = text
 			var i = await core.buttongen([{
 				urlButton: {
 					displayText: 'Go To TikTok',
@@ -201,17 +204,17 @@ Manoj.tiktok.start = async(core) => {
 			}, {
 				quickReplyButton: {
 					displayText: 'WATERMARK',
-					id: 'tiktokvideo/-/' + data.wm
+					id: 'tiktok video/-/' + med.watermark_url
 				}
 			}, {
 				quickReplyButton: {
 					displayText: 'NO-WATERMARK',
-					id: 'tiktokvideo/-/' + data.nowm
+					id: 'tiktok video/-/' + med.no_watermark
 				}
 			}, {
 				quickReplyButton: {
 					displayText: 'ONLY-AUDIO',
-					id: 'tiktokaudio/-/' + data.audio
+					id: 'tiktok audio/-/' + med.audio
 				}
 			}])
 			return s.button = i.button, i.type ? await core.sendbuttonimg(s) : await core.sendButtonimg(s)
@@ -261,7 +264,7 @@ Manoj.truecaller.start = async(core) => {
 
 		var a = 'No-Data',
 			t = '*NUMBER INFO FROM TRUECALLER SITE*\n\n*NAME:- {}*\n\n*ABOUT:- {}*\n\n*SCORE:- {}*\n\n*NUMBER:- {}*\n\n*NUMBER TYPE:- {}*\n\n*NATIONAL FORMAT:- {}*\n\n*DIAL CODE:- {}*\n\n*COUNTRY CODE:- {}*\n\n*CARRIER :- {}*\n\n*ADDRESS:- {}*\n\n*ZIP CODE:- {}*\n\n*CITY:- {}*\n\n*TIME ZONE:- {}*'.bind(r.name || a, r.about || a, r.score || a, r.phones[0].e164Format || a, r.phones[0].numberType || a, r.phones[0].nationalFormat || a, r.phones[0].dialingCode || a, r.phones[0].countryCode || a, r.phones[0].carrier || a, r.addresses[0].address || a, r.addresses[0].zipCode || a, r.addresses[0].city || a, r.addresses[0].timeZone || a)
-		await core.send(string().truecaller.load), await core.mediasend('image', r.image ? r.image : string().truecaller.img, t)
+		await core.send(string().truecaller.load), await core.mediasend('image', r.image ? r.image : await core.image({ buffer:string().truecaller.img, data_edit:{ text: r.phones[0].e164Format || a, threeD:true } }), t, { logo:true })
 	} catch(n) {
 		await core.reply(string().truecaller.error)
 	}

@@ -135,6 +135,7 @@ var string = {
 			info: '*Link:* {} \n\n*Name: {}*\n\n*About: {}*\n\n*Version: {}*\n\n*Type: {}*\n\n*Rating: {}*\n\n*Ratings: {}*\n\n*Content Rating: {}*\n\n*Developer: {}*\n\n*Installs: {}*\n\n*Whats New: {}*\n\n*Description:* ```{}```'
 		},
 		attp: {
+			rgb_desc: 'Create RBG Color Animated Sticker',
 			attpB: {
 				desc: 'Text to Sticker Commands',
 				used: 'attpB example',
@@ -186,8 +187,9 @@ var string = {
 			superchat_desc: 'Add Chat To SuperChat List',
 			superuser_desc: 'Make Someone A Super User Of Bot',
 			banchat_desc: 'Add Chat To BannedChat List',
+			jid_set_desc : 'Add Group Jid To {} List',
 			removed: '*{} Was Removed From {} List*',
-			remove_desc: 'Remove Chats From SuperChats,SuperUsers,Bannedchat',
+			remove_desc: 'Remove Chats From SuperChats,SuperUsers,Bannedchat,WelcomeMessageGroups,GoodByeMessageGroups,SubjectUpdateMessageGroups,EditUpdateGroups,MuteUpdateGroups,PromoteUpdateGroups,DemoteUpdateGroups',
 			superchat_help: 'Enter the chats into the Super Chat list using the .superchat command. Then the bot will only work in SuperChat..not applicable to private commands ... if there are no superchats the bot will work in all chats'
 		},
 		converter: {
@@ -220,12 +222,13 @@ var string = {
 			err: '```Login fail\nYour Database Url Is Not valid\nPlease Renew Your Database Url.. Use .register mongodb url```'
 		},
 		dict: {
-			desc: 'The dictionary.\nEg: .dict car',
-			title: '*The Result For Your Search* \n\n\n',
+			desc: 'The English dictionary.\nEg: .dict car',
+			title: '*The Result For Your Word* \n\n\n',
 			eg: '*Example:* ',
 			def: '*Definition:* ',
-			need: 'Please Use With Word',
-			gen: 'Loading... Please Wait...'
+			need: '*Enter A English Word*',
+			gen: '*Loading... Please Wait...*',
+			err: '*No English word like this can be found*'
 		},
 		download: {
 			needi: '*Reply To Any Image!*',
@@ -278,6 +281,16 @@ var string = {
 			desc: 'Applies the desired ffmpeg filter to the video.\n⌨️ Example: .ffmpeg fade=in:0:30',
 			edit: 'Applying Effect.. please wait',
 			need: 'Need Media and Filter Name!\nℹ️ Ex: ```.ffmpeg fade=in:0:30```\nℹ️ Ex: ```.ffmpeg curves=vintage, fps=fps=25```'
+		},
+		game: {
+			dice: {
+				desc: 'Dice Rolling Game',
+				process: '*Rolling*'
+			},
+			shells: {
+				desc: 'Shelling Game',
+				process: '*Shelling*'
+			},
 		},
 		gdrive: {
 			desc: 'Download Content From Google Drive Link',
@@ -396,7 +409,7 @@ var string = {
 			},
 		},
 		menu: {
-			header: 'Start\n{start:menu_header}\n\nAdd Text Message (keywords: #rate #device #rule)\n' + '{text:┏━━━━━━━━━━━━━━━━━━━━━━━━━\n┃   *MANOJ-MD WHATSAPP BOT*\n┗━━━━━━━━━━━━━━━━━━━━━━━━━\n\n*👨‍💻 COMMAND LIST 👨‍💻*}\n\n' + 'Add 3 Emoji For List\n' + '{emoji:👨‍💻/🕊️/🌳}\n\n' + 'Url Buttons\n' + '{url:GO TO URL|https://github.com/ravindu01manoj}\n' + '{url:SUBSCRIBE YOUTUBE|https://youtube.com/c/TechToFuture}\n\n' + 'Buttons\n' + '{button:RATE US|rate}\n' + '{button:PROPERTY|alive}\n' + '{button:NOTES|note}\n\n' + 'Image (Use Direct Url Or pp Or my_dp Or group_dp)\n' + '{img:https://telegra.ph/file/1d7da58e35215ed3336c5.jpg}\n',
+			header: 'Start\n{start:menu_header}\n\nAdd Text Message (keywords: #rate #device #rule)\n' + '{text:┏━━━━━━━━━━━━━━━━━━━━━━━━━\n┃   *MANOJ-MD WHATSAPP BOT*\n┗━━━━━━━━━━━━━━━━━━━━━━━━━\n\n*👨‍💻 COMMAND LIST 👨‍💻*}\n\n' + 'Add 3 Emoji For List\n' + '{emoji:👨‍💻/🕊️/🌳}\n\n' + 'Url Buttons\n' + '{url:GO TO URL|https://github.com/ravindu01manoj}\n' + '{url:SUBSCRIBE YOUTUBE|https://youtube.com/c/TechToFuture}\n\n' + 'Buttons\n' + '{button:RATE US|rate}\n' + '{button:PROPERTY|alive}\n' + '{button:NOTES|notes}\n\n' + 'Image (Use Direct Url Or pp Or my_dp Or group_dp)\n' + '{img:https://telegra.ph/file/1d7da58e35215ed3336c5.jpg}\n',
 			command: ' *Command:-* ',
 			desc: ' *Description:-* ',
 			help: ' *Help:-* ',
@@ -543,6 +556,10 @@ var string = {
 			msg: '\n┏━━━━━━━━━━━━━━━━\n┃  ❖❖ RATINGS ❖❖\n┃\n┃  ✭✭✭✭✭ = {}\n┃  ✭✭✭✭✩ = {}\n┃  ✭✭✭✩✩ = {}\n┃  ✭✭✩✩✩ = {}\n┃  ✭✩✩✩✩ = {}\n┃\n┗━━━━━━━━━━━━━━━━',
 			need: 'Give Me The Best Rating'
 		},
+		readmore : {
+			desc: 'Make Readmore Text',
+			need: '*Reply To A Text... use / for split the text*'
+		},
 		removebg: {
 			desc: 'Removes the background of the photos.',
 			needapi: '*Need Api Key*\n```Please Add The Api Key Using Removebg Site remove.bg ```',
@@ -558,7 +575,7 @@ var string = {
 			need : '*Please Reply To A Message*',
 			done : '*Successfully Changed {}*',
 			error : '*Not String Found Like This*',
-			listT : '*Manoj Multi-device Database Editor*\n\n*You Can use This Keywords For Every Strings*\n\n*KeyWords*\n\n```#user :- UserName\n#rate :- Rating Details\n#device :- User Device\n#ram :- Server Ram\n#storage :- Server Storage\n#my_name :- Bot Number User Name```',
+			listT : '*Manoj Multi-device Database Editor*\n\n*You Can use This Keywords For Every Strings*\n\n*KeyWords*\n\n```#user :- UserName\n#rate :- Rating Details\n#device :- User Device\n#myname :- Bot Number User Name\n#host :- Server Host Name\n#cups :- Server Cpus Details\n#server_platform :- Server Platform Data\n#uptime :- Bot Uptime\n#ram :- Server Total Ram\n#freeRam :- Server Free Ram\n#browser :- Whatsapp Web Browser\n#date : Date Now\n#time :- Time Now\n```',
 			wrong : '*Canot Decrypt Your Reply Msg... Please Reply Like Example...*'
 		},
 		scam: {
@@ -566,6 +583,11 @@ var string = {
 			need: '*You Must Enter Fake Action!*\nExisting Types: ```typing & recording & online & stop```',
 			scam_s: '*Fake Action : --{}--*',
 			err: '```Wrong Action Entered! Please use existing types.: typing & recording & online & stop```'
+		},
+		screenshot : {
+			desc : 'Take a screenshot of the site',
+			need : '*Please Enter A Url*',
+			error : '*Not Found Site Like This :(*'
 		},
 		start: {
 			shutdown: {
@@ -577,6 +599,16 @@ var string = {
 				boot: '```Booting...```',
 				done: '*Manoj Multi-device Whatsapp Bot Started Successfull!*'
 			}
+		},
+		stick_cmd: {
+			desc: 'Convert Sticker To Command',
+			help: 'stickcmd mute',
+			need: '*Reply To A Sticker*',
+			needc: '*Use Like This => .stickcmd mute*',
+			done: '*Successfully created. Now You can use sticker for active {} command*',
+			rem_desc: 'Remove Sticker Command From List',
+			rem_no: '*No Saved Commands!*',
+			rem_done: '*Successfully Removed {} From The List!*',
 		},
 		sticker: {
 			desc: 'It converts your replied or used photo or video or gif to sticker.',
@@ -612,6 +644,14 @@ var string = {
 			dload: '*Downloading Content From Tiktok Link*',
 			uload: '*Uploading Content From Tiktok Link*',
 			error: '*I can not download your Tiktok Content :(*'
+		},
+		trt: {
+			desc: 'Language Transelate',
+			used: 'trt auto/en',
+			need_r : '*Reply To A Text*',
+			needlang : '*Need Two Language*\n*Example: .trt auto/en or .trt si/en*',
+			err : '*Can Not Translate This :(*',
+			done : '*TRANSLATION SUCCESSFULL*\n*FROM : {}*\n*TO : {}*\n*TEXT :* ```{}```'
 		},
 		truecaller: {
 			desc: 'Search Number In truecaller site',
@@ -693,14 +733,14 @@ var string = {
 			song: {
 				desc: 'Downloading Songs With Youtube',
 				need: '*Please Enter A Song Name*',
-				data: '*URL: {}*\n\n*Title: {}*\n\n*Channel: {}*\n\n*Views: {}*\n\n*Category: {}*\n\n*Likes : {}*\n\n*Description : {}*\n\n',
+				data: '*URL: {}*\n\n*Title: {}*\n\n*Channel: {}*\n\n*Views: {}*\n\n*Category: {}*\n\n*Likes : {}*\n\n*Description :* ```{}```\n\n',
 				download: '*I am Searching Your Song*',
 				upload: '*I am Uploading Your Song*'
 			},
 			video: {
 				desc: 'Downloading Videos With Youtube',
 				need: '*Please Enter A Youtube Url*',
-				data: '*URL: {}*\n\n*Title: {}*\n\n*Channel: {}*\n\n*Views: {}*\n\n*Category: {}*\n\n*Likes : {}*\n\n*Description : {}*\n\n',
+				data: '*URL: {}*\n\n*Title: {}*\n\n*Channel: {}*\n\n*Views: {}*\n\n*Category: {}*\n\n*Likes : {}*\n\n*Description :* ```{}```\n\n',
 				download: '*I am Searching Your Video*',
 				upload: '*I am Uploading Your Video*'
 			},
